@@ -1,0 +1,134 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="FilmesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="FilmeDetalhe">
+          <Key>
+            <PropertyRef Name="FilmeID" />
+          </Key>
+          <Property Name="FilmeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FilmeDescricao" Type="varchar" MaxLength="50" />
+          <Property Name="FilmeGeneroID" Type="int" />
+          <Property Name="FilmeNome" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="FilmeRefGenero">
+          <Key>
+            <PropertyRef Name="FilmeRefGeneroID" />
+          </Key>
+          <Property Name="FilmeRefGeneroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FilmeRefGeneroName" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__FilmeDeta__Filme__63A3C44B">
+          <End Role="FilmeRefGenero" Type="Self.FilmeRefGenero" Multiplicity="0..1" />
+          <End Role="FilmeDetalhe" Type="Self.FilmeDetalhe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilmeRefGenero">
+              <PropertyRef Name="FilmeRefGeneroID" />
+            </Principal>
+            <Dependent Role="FilmeDetalhe">
+              <PropertyRef Name="FilmeGeneroID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FilmesModelStoreContainer">
+          <EntitySet Name="FilmeDetalhe" EntityType="Self.FilmeDetalhe" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FilmeRefGenero" EntityType="Self.FilmeRefGenero" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__FilmeDeta__Filme__63A3C44B" Association="Self.FK__FilmeDeta__Filme__63A3C44B">
+            <End Role="FilmeRefGenero" EntitySet="FilmeRefGenero" />
+            <End Role="FilmeDetalhe" EntitySet="FilmeDetalhe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FilmesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="FilmeDetalhe">
+          <Key>
+            <PropertyRef Name="FilmeID" />
+          </Key>
+          <Property Name="FilmeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FilmeDescricao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FilmeGeneroID" Type="Int32" />
+          <Property Name="FilmeNome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FilmeRefGenero" Relationship="Self.FK__FilmeDeta__Filme__63A3C44B" FromRole="FilmeDetalhe" ToRole="FilmeRefGenero" />
+        </EntityType>
+        <EntityType Name="FilmeRefGenero">
+          <Key>
+            <PropertyRef Name="FilmeRefGeneroID" />
+          </Key>
+          <Property Name="FilmeRefGeneroID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FilmeRefGeneroName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="FilmeDetalhe" Relationship="Self.FK__FilmeDeta__Filme__63A3C44B" FromRole="FilmeRefGenero" ToRole="FilmeDetalhe" />
+        </EntityType>
+        <Association Name="FK__FilmeDeta__Filme__63A3C44B">
+          <End Role="FilmeRefGenero" Type="Self.FilmeRefGenero" Multiplicity="0..1" />
+          <End Role="FilmeDetalhe" Type="Self.FilmeDetalhe" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FilmeRefGenero">
+              <PropertyRef Name="FilmeRefGeneroID" />
+            </Principal>
+            <Dependent Role="FilmeDetalhe">
+              <PropertyRef Name="FilmeGeneroID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FilmesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="FilmeDetalhe" EntityType="Self.FilmeDetalhe" />
+          <EntitySet Name="FilmeRefGenero" EntityType="Self.FilmeRefGenero" />
+          <AssociationSet Name="FK__FilmeDeta__Filme__63A3C44B" Association="Self.FK__FilmeDeta__Filme__63A3C44B">
+            <End Role="FilmeRefGenero" EntitySet="FilmeRefGenero" />
+            <End Role="FilmeDetalhe" EntitySet="FilmeDetalhe" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FilmesModelStoreContainer" CdmEntityContainer="FilmesEntities">
+          <EntitySetMapping Name="FilmeDetalhe">
+            <EntityTypeMapping TypeName="FilmesModel.FilmeDetalhe">
+              <MappingFragment StoreEntitySet="FilmeDetalhe">
+                <ScalarProperty Name="FilmeID" ColumnName="FilmeID" />
+                <ScalarProperty Name="FilmeDescricao" ColumnName="FilmeDescricao" />
+                <ScalarProperty Name="FilmeGeneroID" ColumnName="FilmeGeneroID" />
+                <ScalarProperty Name="FilmeNome" ColumnName="FilmeNome" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FilmeRefGenero">
+            <EntityTypeMapping TypeName="FilmesModel.FilmeRefGenero">
+              <MappingFragment StoreEntitySet="FilmeRefGenero">
+                <ScalarProperty Name="FilmeRefGeneroID" ColumnName="FilmeRefGeneroID" />
+                <ScalarProperty Name="FilmeRefGeneroName" ColumnName="FilmeRefGeneroName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,26 @@
+﻿@model FILMECRUD.Models.FilmeRefGenero
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>FilmeRefGenero</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FilmeRefGeneroName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FilmeRefGeneroName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FilmeRefGeneroID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
